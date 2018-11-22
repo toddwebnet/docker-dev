@@ -4,7 +4,7 @@ services:
 ### NGINX Server #########################################
   nginx:
     build:
-      context: ./nginx
+      context: ${DOCKER_PATH}/nginx
       args:
         - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
         - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
@@ -25,7 +25,7 @@ services:
 ### PHP-FPM ##############################################
   php-fpm:
     build:
-      context: ./php-fpm
+      context: ${DOCKER_PATH}/php-fpm
       args:
         - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
         - INSTALL_IMAP=${PHP_FPM_INSTALL_IMAP}
@@ -53,7 +53,7 @@ services:
 ### MySQL ################################################
   mysql:
     build:
-      context: ./mysql
+      context: ${DOCKER_PATH}/mysql
       args:
         - MYSQL_VERSION=${MYSQL_VERSION}
     environment:
@@ -71,7 +71,7 @@ services:
 ### Workspace Utilities ##################################
   workspace:
     build:
-      context: ./workspace
+      context: ${DOCKER_PATH}/workspace
       args:
         - PHP_VERSION=${PHP_VERSION}
         - TZ=${TIMEZONE}
@@ -99,7 +99,7 @@ services:
 ### PHP Worker ############################################
   supervisor:
     build:
-      context: ./supervisor
+      context: ${DOCKER_PATH}/supervisor
       args:
         - PHP_VERSION=${PHP_VERSION}
         - INSTALL_PGSQL=${PHP_FPM_INSTALL_PGSQL}
@@ -112,7 +112,7 @@ services:
       - backend
 ### PostgreSQL ###########################################
   postgres:
-    build: ./postgres
+    build: ${DOCKER_PATH}/postgres
     volumes:
       - ${DATA_PATH_HOST}/postgres:/var/lib/postgresql/data
       - ${POSTGRES_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
