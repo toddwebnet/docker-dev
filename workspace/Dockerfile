@@ -13,8 +13,8 @@ ENV TERM xterm
 
 ARG PHP_VERSION=7.2
 # Add the "PHP 7" ppa
-RUN apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:ondrej/php
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:ondrej/php
 
 
 # Install "PHP Extentions", "libraries", "Software's"
@@ -50,6 +50,7 @@ RUN apt-get update && \
         vim \
         nano \
         zip \
+        mysql-client \
         postgresql-client \
     && apt-get clean
 

@@ -15,7 +15,7 @@ RUN apt-get update \
     libfreetype6-dev \
     libssl-dev \
     libmcrypt-dev \
-    supervisor
+    supervisor \
   && rm -rf /var/lib/apt/lists/*
 
 
@@ -245,8 +245,7 @@ RUN if [ ${INSTALL_CALENDAR} = true ]; then \
 
 
 
-RUN rm /var/cache/apk/* \
-    && mkdir -p /var/www
+RUN mkdir -p /var/www
 
 #
 #--------------------------------------------------------------------------
