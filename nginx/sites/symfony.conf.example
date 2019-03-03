@@ -14,11 +14,17 @@ server {
     index index.php index.html index.htm;
 
     location / {
-      try_files $uri @rewriteapp;
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
+        add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+        try_files $uri @rewriteapp;
     }
 
     # For Symfony 3
     location @rewriteapp {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
+        add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
         rewrite ^(.*)$ /app.php/$1 last;
     }
 
@@ -28,6 +34,9 @@ server {
     # }
 
     location ~ ^/(app|app_dev|config|index)\.php(/|$) {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
+        add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
         fastcgi_pass php-upstream;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
